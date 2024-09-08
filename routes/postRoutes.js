@@ -1,12 +1,14 @@
-import { app } from "../app";
-import { deletePost, createPost, updatePost } from '../controllers/postConroller';
-import { readPost } from '../controllers/userController';
+import express from 'express';
+import { createPost, getPost, updatePost, deletePost, getAllPosts } from '../controllers/postController.js';
+import { protect } from '../middleware/authMiddleware.js';
+import { validatePost } from '../middleware/validationMiddleware.js';
 
-const router = app.router();
+const router = express.Router();
 
-router.get('/', verifyToken, readPost);
-router.post('/', verifyToken, createPost);
-router.put('/', verifyToken, updatePost);
-router.delete('/', verifyToken, deletePost);
+router.post('/', protect, validatePost, createPost);
+router.get('/:id', getPost);
+router.put('/:id', protect, validatePost, updatePost);
+router.delete('/:id', protect, deletePost);
+router.get('/', getAllPosts);
 
-module.exports = router;
+export default router;

@@ -3,6 +3,15 @@ import mongoose from 'mongoose';
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
 import { error } from "console";
+// routers 
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
+import commentRoutes from './routes/commnetRoutes.js';
+import reactionRoutes from './routes/reactionRoute.js';
+import uploadRoutes from './routes/uploadRoutes.js';
+
 
 const app = express();
 
@@ -23,3 +32,9 @@ mongoose.connect(mongoURL)
     .catch((error), () => {
         console.log(error)
     });
+
+
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/posts', authRoutes);
+app.use('/api/', userRoutes);
