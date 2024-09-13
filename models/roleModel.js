@@ -10,11 +10,11 @@ const roleSchema = new mongoose.Schema({
         trim: true,
         uppercase: true
     },
-    description: {
-        type: String,
-        trim: true,
-        maxlength: 200
-    },
+    // description: {
+    //     type: String,
+    //     trim: true,
+    //     maxlength: 200
+    // },
     permissions: [{
         type: String,
         trim: true

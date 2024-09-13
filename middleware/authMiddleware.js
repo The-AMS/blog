@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
+import { isTokenBlacklisted } from '../services/tokenService.js';
+
 
 export const protect = async (req, res, next) => {
     let token;
@@ -8,6 +10,10 @@ export const protect = async (req, res, next) => {
         try {
             // Get token from header
             token = req.headers.authorization.split(' ')[1];
+
+            if (await isTokenBlacklisted(token)) {
+                return res.status(401).json({ message: 'Token is no longer valid' });
+            }
 
             // Verify token
             const decoded = jwt.verify(token, process.env.JWT_SECRET);

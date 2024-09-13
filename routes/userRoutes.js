@@ -7,6 +7,6 @@ const router = express.Router();
 router.get('/profile', protect, getUser);
 router.put('/profile', protect, updateUser);
 router.delete('/profile', protect, deleteUser);
-router.get('/', protect, admin, getAllUsers);
+router.get('/all', protect, admin, getAllUsers);
 
 export default router;

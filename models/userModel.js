@@ -26,13 +26,13 @@ const userSchema = new mongoose.Schema({
         ref: 'Role',
         required: true
     },
-    bio: {
-        type: String,
-        maxlength: 500
-    },
-    profilePicture: {
-        type: String
-    }
+    // bio: {
+    //     type: String,
+    //     maxlength: 500
+    // },
+    // profilePicture: {
+    //     type: String
+    // }
 }, {
     timestamps: true
 });
