@@ -1,7 +1,7 @@
 import User from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { addToBlacklist } from '../services/tokenService.js';
+// import { addToBlacklist } from '../services/tokenService.js';
 
 
 export const registerUser = async (req, res) => {
@@ -62,13 +62,15 @@ export const loginUser = async (req, res) => {
 };
 
 export const logoutUser = async (req, res) => {
-    try {
-        const token = req.headers.authorization.split(' ')[1];
-        await addToBlacklist(token);
-        res.json({ message: 'User logged out successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error during logout', error: error.message });
-    }
+    res.json({ message: 'User logged out successfully' });
+
+    // try {
+    //     const token = req.headers.authorization.split(' ')[1];
+    //     await addToBlacklist(token);
+    //     res.json({ message: 'User logged out successfully' });
+    // } catch (error) {
+    //     res.status(500).json({ message: 'Error during logout', error: error.message });
+    // }
 };
 
 
