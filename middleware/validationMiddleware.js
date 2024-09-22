@@ -3,7 +3,7 @@ import { body, validationResult } from 'express-validator';
 export const validatePost = [
     body('title').notEmpty().trim().isLength({ min: 3, max: 200 }),
     body('content').notEmpty().trim(),
-    body('category').notEmpty().isMongoId(),
+    // body('category').notEmpty().isMongoId(),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

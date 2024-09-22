@@ -22,12 +22,12 @@ const userSchema = new mongoose.Schema({
         match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
     role: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Role',
-        required: true
+        type: String,
+        enum: ['USER', 'ADMIN'], // فقط دو نقش ثابت
+        default: 'USER' // به طور پیش‌فرض نقش کاربر عادی است
     },
     // bio: {
-    //     type: String,
+    // s    type: String,
     //     maxlength: 500
     // },
     // profilePicture: {

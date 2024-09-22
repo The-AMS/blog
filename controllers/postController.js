@@ -2,11 +2,12 @@ import Post from '../models/postModel.js';
 
 export const createPost = async (req, res) => {
     try {
-        const { title, content, category } = req.body;
+        // const { title, content, category } = req.body; //replace 
+        const { title, content } = req.body;
         const post = new Post({
             title,
             content,
-            category,
+            // category,
             author: req.user._id
         });
 
@@ -20,8 +21,8 @@ export const createPost = async (req, res) => {
 export const getPost = async (req, res) => {
     try {
         const post = await Post.findById(req.params.id)
-            .populate('author', 'username')
-            .populate('category', 'name');
+            .populate('author', 'username');
+        // .populate('category', 'name');
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
@@ -33,7 +34,8 @@ export const getPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
     try {
-        const { title, content, category } = req.body;
+        // const { title, content, category } = req.body;
+        const { title, content } = req.body;
         const post = await Post.findById(req.params.id);
 
         if (!post) {
@@ -47,7 +49,7 @@ export const updatePost = async (req, res) => {
 
         post.title = title || post.title;
         post.content = content || post.content;
-        post.category = category || post.category;
+        // post.category = category || post.category;
 
         const updatedPost = await post.save();
         res.json(updatedPost);
@@ -69,7 +71,7 @@ export const deletePost = async (req, res) => {
             return res.status(403).json({ message: 'User not authorized to delete this post' });
         }
 
-        await post.remove();
+        await post.deleteOne();
         res.json({ message: 'Post removed' });
     } catch (error) {
         res.status(500).json({ message: 'Error deleting post', error: error.message });
@@ -94,3 +96,13 @@ export const getAllPosts = async (req, res) => {
         res.status(500).json({ message: 'Error fetching posts', error: error.message });
     }
 };
+
+
+
+
+
+
+
+
+
+
