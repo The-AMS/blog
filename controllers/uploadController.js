@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
 
 export const uploadImage = async (req, res) => {
     try {
@@ -21,11 +22,12 @@ export const uploadImage = async (req, res) => {
 };
 
 export const getImage = async (req, res) => {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
     try {
         const filename = req.params.filename;
-        const filepath = path.join('uploads', filename);
+        const filepath = path.join(__dirname, '../uploads', filename);
 
-        // Check if file exists
         if (!fs.existsSync(filepath)) {
             return res.status(404).json({ message: 'Image not found' });
         }
@@ -54,3 +56,13 @@ export const deleteImage = async (req, res) => {
         res.status(500).json({ message: 'Error deleting image', error: error.message });
     }
 };
+
+
+
+
+
+
+
+
+
+

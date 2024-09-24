@@ -9,7 +9,7 @@ import userRoutes from './routes/userRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
-// import categoryRoutes from './routes/categoryRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 // import commentRoutes from './routes/commnetRoutes.js';
 // import reactionRoutes from './routes/reactionRoute.js';
 
@@ -36,6 +36,6 @@ app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/upload', uploadRoutes);
-// app.use('/api/category', categoryRoutes);
+app.use('/api/category', categoryRoutes);
 // app.use('/api/comment', commentRoutes);
 // app.use('/api/reaction', reactionRoutes);
