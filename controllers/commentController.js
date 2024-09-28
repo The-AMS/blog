@@ -69,11 +69,27 @@ export const deleteComment = async (req, res) => {
             return res.status(403).json({ message: 'User not authorized to delete this comment' });
         }
 
-        await comment.remove();
+        await comment.deleteOne();
         await Post.findByIdAndUpdate(comment.post, { $pull: { comments: comment._id } });
 
         res.json({ message: 'Comment removed' });
     } catch (error) {
         res.status(500).json({ message: 'Error deleting comment', error: error.message });
+    }
+};
+
+export const getAllComments = async (req, res) => {
+    try {
+        const pageSize = 20;
+        const page = Number(req.query.page) || 1;
+        const comments = await Comment.find()
+            .limit(pageSize)
+            .sort({ createdAt: -1 })
+            .skip(pageSize * (page - 1))
+            .populate('author', 'username');
+
+        res.json(comments);
+    } catch (error) {
+        res.status(500).json({ message: 'Error get all comments', error: error.message });
     }
 };

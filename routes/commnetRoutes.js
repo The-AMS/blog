@@ -1,14 +1,15 @@
 import express from 'express';
-import { addComment, getComment, updateComment, deleteComment } from '../controllers/commentController.js';
+import { addComment, getComment, getAllComments, updateComment, deleteComment } from '../controllers/commentController.js';
 import { protect } from '../middleware/authMiddleware.js';
-//import { validateComment } from '../middleware/validationMiddleware.js';
+import { validateComment } from '../middleware/validationMiddleware.js';
 
 const router = express.Router();
 
-//validateComment
-router.post('/:postId', protect, addComment);
+//
+router.post('/:postId', validateComment, protect, addComment);
 router.get('/:id', getComment);
-router.put('/:id', protect, updateComment);
+router.get('/', getAllComments);
+router.put('/:id', validateComment, protect, updateComment);
 router.delete('/:id', protect, deleteComment);
 
 export default router;
