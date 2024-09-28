@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import bodyParser from "body-parser";
 import dotenv from 'dotenv';
 import { error } from "console";
-// routers 
+// routers   
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
@@ -11,7 +11,7 @@ import postRoutes from './routes/postRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
 import reactionRoutes from './routes/reactionRoute.js';
-// import commentRoutes from './routes/commnetRoutes.js';
+import commentRoutes from './routes/commnetRoutes.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -38,4 +38,4 @@ app.use('/api/posts', postRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/reaction', reactionRoutes);
-// app.use('/api/comment', commentRoutes);
+app.use('/api/comment', commentRoutes);
