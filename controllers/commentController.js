@@ -82,6 +82,7 @@ export const getAllComments = async (req, res) => {
     try {
         const pageSize = 20;
         const currentPage = Number(req.query.page) || 1;
+        const count = await Comment.countDocuments();
         const comments = await Comment.find()
             .limit(pageSize)
             .sort({ createdAt: -1 })
