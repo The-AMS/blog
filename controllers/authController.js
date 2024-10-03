@@ -63,14 +63,6 @@ export const loginUser = async (req, res) => {
 
 export const logoutUser = async (req, res) => {
     res.json({ message: 'User logged out successfully' });
-
-    // try {
-    //     const token = req.headers.authorization.split(' ')[1];
-    //     await addToBlacklist(token);
-    //     res.json({ message: 'User logged out successfully' });
-    // } catch (error) {
-    //     res.status(500).json({ message: 'Error during logout', error: error.message });
-    // }
 };
 
 
