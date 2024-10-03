@@ -81,17 +81,17 @@ export const deletePost = async (req, res) => {
 export const getAllPosts = async (req, res) => {
     try {
         const pageSize = 10;
-        const page = Number(req.query.page) || 1;
+        const currentPage = Number(req.query.page) || 1;
 
         const count = await Post.countDocuments();
         const posts = await Post.find()
             .limit(pageSize)
-            .skip(pageSize * (page - 1))
+            .skip(pageSize * (currentPage - 1))
             .sort({ createdAt: -1 })
             .populate('author', 'username')
             .populate('category', 'name');
 
-        res.json({ posts, page, pages: Math.ceil(count / pageSize) });
+        res.json({ posts, currentPage, totalPageCount: Math.ceil(count / pageSize) });
     } catch (error) {
         res.status(500).json({ message: 'Error fetching posts', error: error.message });
     }
