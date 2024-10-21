@@ -1,8 +1,7 @@
 import User from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-// import { addToBlacklist } from '../services/tokenService.js';
-
+import { setAsync, delAsync } from '../app.js';
 
 export const registerUser = async (req, res) => {
     try {
@@ -26,11 +25,14 @@ export const registerUser = async (req, res) => {
         });
 
         if (user) {
+            const token = generateToken(user._id);
+            await setAsync(`auth_${token}`, JSON.stringify(user), 'EX', 86400); //expire in 24 hours
+
             res.status(201).json({
                 _id: user._id,
                 username: user.username,
                 email: user.email,
-                token: generateToken(user._id),
+                token: token,
             });
         } else {
             res.status(400).json({ message: 'Invalid user data' });
@@ -47,11 +49,14 @@ export const loginUser = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (user && (await bcrypt.compare(password, user.password))) {
+            const token = generateToken(user._id);
+            await setAsync(`auth_${token}`, JSON.stringify(user), 'EX', 86400);//expire in 24 hours
+
             res.json({
                 _id: user._id,
                 username: user.username,
                 email: user.email,
-                token: generateToken(user._id),
+                token: token,
             });
         } else {
             res.status(401).json({ message: 'Invalid email or password' });
@@ -61,8 +66,18 @@ export const loginUser = async (req, res) => {
     }
 };
 
+
 export const logoutUser = async (req, res) => {
-    res.json({ message: 'User logged out successfully' });
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+        if (token) {
+            await delAsync(`auth_${token}`);
+        }
+        res.json({ message: "Logged out successfully" });
+    } catch (error) {
+        res.status(500).json({ message: `Logout failed`, error: error.message });
+    }
+
 };
 
 
@@ -71,3 +86,13 @@ const generateToken = (id) => {
         expiresIn: '1d',
     });
 };
+
+
+
+
+
+
+
+
+
+
