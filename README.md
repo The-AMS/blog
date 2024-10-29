@@ -10,12 +10,14 @@ This is a **RESTful API** built with **Node.js**, designed to manage a blog plat
 - **Reaction System**: Allows users to react (like/dislike) to blog posts.
 - **Image Upload**: Upload images for blog posts using **Multer**.
 - **Role-Based Access Control**: Admin and user roles for controlling access to certain features.
+- **Cashing System**: In-memory data store used for session management and caching.
 
 ## Technologies Used
 
 - **Node.js**: Backend runtime environment.
 - **Express.js**: Framework for building web applications.
 - **MongoDB & Mongoose**: NoSQL database and object modeling library.
+- **Redis**: Fast key-value store for managing user sessions and improving application performance.
 - **JWT (jsonwebtoken)**: For secure authentication and session management.
 - **Bcrypt**: For password hashing.
 - **Express-validator**: For validating and sanitizing inputs.
@@ -73,6 +75,7 @@ This is a **RESTful API** built with **Node.js**, designed to manage a blog plat
 - **mongoose**: Object modeling for MongoDB.
 - **multer**: Middleware for handling file uploads.
 - **path**: Provides utilities for working with file and directory paths.
+- **redis**: In-memory data store for caching and managing sessions efficiently.
 
 ## License
 
